@@ -1,0 +1,8 @@
+.cardsContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.nostyle{
+    text-decoration: none;
+}

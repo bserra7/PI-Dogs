@@ -1,0 +1,53 @@
+.back{
+    /* background-image: url('https://wallpaperaccess.com/full/202657.jpg'); */
+    /* background-image: url('https://wallpaperaccess.com/full/463540.jpg'); */
+    background-image: url('https://wallpaperaccess.com/full/1707647.jpg');
+    position: absolute;
+    top: 0;
+    margin: 0;    
+    width: 100%;
+    height: 100%;
+}
+.nostyle{
+    text-decoration: none;
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.appName{
+    font-size: 60px;
+    font-style: italic;
+    color: #FFF;
+    text-shadow: 2px 2px 5px rgb(82, 82, 82); 
+}
+.description{
+    font-size: 30px;
+    /*background-color: #49494954;*/
+    background: linear-gradient(0deg, rgba(255,255,255,0) 20%, rgba(73, 73, 73, 0.603) 100%);
+    color: #fff;
+    font-weight: 600;
+    font-style: italic;
+    width: 30%;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 350px;
+}
+.inButton{
+    height: 70px;
+    width: 450px;
+    font-size: 32px;
+    font-weight: 600;
+    /*background-color: #0099ffab;*/
+    background-color: #29292970;
+    color: #fff;
+   /*  text-shadow: 2px 2px 5px rgb(138, 138, 138); */
+    font-family: 'Mulish';
+    border: none;
+    box-shadow: 2px 2px 5px rgb(85, 85, 85);
+}
+.inButton:hover{
+    cursor: pointer;
+    transform: scale(1.02);
+}
