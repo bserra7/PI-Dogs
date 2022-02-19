@@ -1,5 +1,5 @@
 .searchBar{
-    height: 100px;
+    height: 80px;
     background-color: #414141;
     display: flex;
     width: 100%;
@@ -13,4 +13,27 @@
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
+    flex-wrap: wrap;
+}
+.inputs{
+    height: 40px;
+    width: 250px;
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 0 10px;
+}
+.btn{
+    height: 40px;
+    width: auto;
+    padding: 0 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: #00000000;
+    color: #fff;
+    border: 1px solid;
+}
+.btn:hover{
+    cursor: pointer;
+    background-color: #fff;
+    color: #000;
 }

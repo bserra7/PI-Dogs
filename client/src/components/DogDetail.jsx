@@ -1,6 +1,7 @@
 import { React, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDogDetail } from "../actions";
+import Loader from './Loader';
 import s from '../css/DogDetail.module.css';
 
 const DogDetail = ({dogId}) => {
@@ -11,23 +12,25 @@ const DogDetail = ({dogId}) => {
     },[dispatch, dogId])
 
     const dog = useSelector((state) => state.dogDetail);
+    console.log(dogId);
+    console.log(dog);
 
     return(
         <> 
         {dog ? 
-        <div className="dogBox">
-            <div className="head">
+        <div className={s.dogBox}>
+            <div className={s.name}>
                 Breed Name: {dog.name}
-            <img src={dog.image} alt={dog.name}/>
             </div>
-            <div className="data">
-                Temperaments: {dog.temperament}
-                Height: {dog.height}
-                Weight: {dog.weight}
-                Life Expectation: {dog.life_span}
+            <div className={s.imageBox}><img className={s.image} src={dog.image} alt={dog.name}/></div>
+            <div className={s.data}>
+                <div className={s.temps}>Temperaments: {dog.temperaments?.map(temp => <span key={temp}>• {temp}</span> )}</div>
+                <p>Height: {dog.height} cm</p>
+                <p>Weight: {dog.weight} kg</p>
+                <p>Life Expectation: {dog.life_span}</p>
             </div>
         </div>
-        : 'Loading...'}
+        : <Loader/>}
         </>
     )
 }

@@ -1,0 +1,28 @@
+.dogBox{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.name{
+    font-size: 40px;
+    padding: 20px;
+}
+.temps{
+    display: flex;
+    flex-direction: column;
+}
+.temps span{
+    padding-left: 50px;
+}
+.image{
+    width: 500px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+.data{
+    text-align: left;
+    font-size: 25px;
+}

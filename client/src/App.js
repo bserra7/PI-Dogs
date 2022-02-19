@@ -7,6 +7,7 @@ import NavBar from './components/NavBar';
 import SearchBar from './components/SearchBar';
 import NewDog from './components/NewDog';
 import DogDetail from './components/DogDetail';
+import About from './components/About';
 
 function App() {
   return (
@@ -27,9 +28,15 @@ function App() {
           </>
         )}>
         </Route>
-        <Route exact path='/new-dog'>
+        <Route exact path='/new-dog' 
+          render={({history}) => (<>
           <NavBar/> 
-          <NewDog/>
+          <NewDog history={history}/>
+          </>
+        )}/>
+        <Route exact path='/about'>
+          <NavBar/> 
+          <About/>
         </Route>
       </Switch>  
     </div>

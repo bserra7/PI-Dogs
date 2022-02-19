@@ -1,39 +1,85 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import s from '../css/SearchBar.module.css';
-import { connect } from "react-redux";
-import { getTemperaments } from "../actions";
+import { useDispatch, useSelector } from "react-redux";
+import { orderBreeds, getBreedsFiltered, getTemperaments, clearFilters } from "../actions";
 
-const SearchBar = ( props ) => {
+const SearchBar = () => {
+    const dispatch = useDispatch();
+    
     useEffect(()=>{
-        props.getTemperaments();
-    },[]);
+        dispatch(getTemperaments());
+    }, []); // eslint-disable-line
+
+    const temperaments = useSelector(state => state.temperaments);
+    /* const [search, setSearch] = useState(''); */
+    const [form, setForm] = useState({
+        searchName: '',
+        dataSource: 'allSources',
+        temperaments: ''
+    });
+    
+    const [order, setOrder] = useState('');
+    
+    useEffect(()=>{
+        dispatch(orderBreeds(order))
+    },[order, dispatch])
+    
+    const handleOrder = event => {
+        setOrder(state => (event.target.value));
+    }
+
+    const resetFilters = () => {
+        dispatch(clearFilters());
+        setOrder('');
+        setForm({
+            searchName: '',
+            dataSource: 'allSources',
+            temperaments: ''
+        })
+    }
+
+    const handleFilter = event => {
+        setForm(state => ({
+            ...state,
+            [event.target.name]: event.target.value
+        }));
+    }
+
+    const handleSubmit = event => {
+        event.preventDefault()
+        dispatch(getBreedsFiltered(form));
+    }
+
     return(
         <div className={s.searchBar}>
-        <form className={s.searchForm} >
-            <input type="search" placeholder="Search by breed name" />
-            <input type="submit" value='Search' />
-            <select name="orderExistent" id="orderExistent">
-                <option value=''>Order by...</option>
-                <optgroup label='Existent Breed'>
-                    <option value='apiBreed'>From API</option>
+        <form className={s.searchForm} onSubmit={e => handleSubmit(e)}>
+            <input className={s.inputs} type="search" name="searchName" value={form.searchName} onChange={e => handleFilter(e)} placeholder="Search by breed name or ID"/>
+            <select className={s.inputs} name="dataSource" defaultValue='none' onChange={e => handleFilter(e)} id="dataSource">
+                <option value="none" disabled hidden>Select Data Source</option>
+                <option value='allSources'>All Sources</option>
+                <optgroup label='Sources'>
+                    <option value='apiOnly'>API Only</option>
                     <option value='createdBreed'>Created Breed</option>
                 </optgroup>
             </select>
-            <select name="orderTemperaments" id="orderTemperaments">
-                <option value=''>Order by...</option>
+            <select className={s.inputs} name="temperaments" defaultValue='none' onChange={e => handleFilter(e)} id="temperaments">
+                <option value="none" disabled hidden>Select Temperaments</option>
+                <option value="">All Temperaments</option>
                 <optgroup label='Temperaments'> 
-                    {props.temperaments?.map(temp => <option key={temp.id} value={temp.id}>{temp.name}</option>)}
+                    {temperaments?.map(temp => <option key={temp.id} value={temp.name}>{temp.name}</option>)}
                 </optgroup>
             </select>
-            <select name="orderAscDesc" id="orderAscDesc">
-                <option value=''>Order by...</option>
+            <input className={s.btn} type="submit" value='Search'/>
+            <input className={s.btn} type="reset" onClick={e => resetFilters()} value='Reset Filters'/>
+            <select className={s.inputs} name="orderAscDesc" defaultValue='none' onChange={e => handleOrder(e)} id="orderAscDesc">
+                <option value="none" disabled hidden>Order by Name or Weight</option>
                 <optgroup label='Breed Name'>                
                     <option value='nameAsc'>Ascendent A to Z</option>
                     <option value='nameDesc'>Descendent Z to A</option>
                 </optgroup>
                 <optgroup label='Weight'>
-                    <option value='weigthAsc'>Lower to Higher</option>
-                    <option value='weigthDesc'>Higher to Lower</option>
+                    <option value='weightAsc'>Lower to Higher</option>
+                    <option value='weightDesc'>Higher to Lower</option>
                 </optgroup>
             </select>
         </form>
@@ -41,13 +87,8 @@ const SearchBar = ( props ) => {
     )
 }
 
-const mapStateToProps = state => ({
-    temperaments: state.temperaments
-});
 
-const mapDispatchToProps = dispatch => ({
-    getTemperaments: () => dispatch(getTemperaments())
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+
+export default SearchBar;
         

@@ -1,35 +1,40 @@
-import { GET_BREEDS, GET_TEMPERAMENTS, GET_DOG_DETAIL, CREATE_DOG_BREED, GET_BY_NAME } from "../actions";
+import { GET_BREEDS, GET_TEMPERAMENTS, GET_DOG_DETAIL, CREATE_DOG_BREED, GET_BREEDS_FILTERED, GET_BY_ID, ORDER_BREEDS, ERROR_OCURRED, CLEAR_ERROR, RESET_FILTERS } from "../actions";
+import { sortAsc, sortDesc } from "../utils";
 
 const initialState = {
     dogBreeds: [],
     temperaments: [],
-    dogByName: {},
+    dogs: [],
+    toFilter: [],
     dogDetail: {},
-    postResponse: '',
+    post: '',
+    error: '',
+    alreadyFiltered: false
 }
 
-export default (state = initialState, action) => {
+const rootReducer = (state = initialState, action) => {
     switch (action.type){
         case GET_BREEDS:
             return {
                 ...state,
-                dogBreeds: action.payload
+                dogBreeds: action.payload,
+                dogs: action.payload
             };
         case GET_TEMPERAMENTS:
             return {
                 ...state,
-                temperaments: action.payload.sort((a, b) => {
-                    var A = a.name.slice(0,3);
-                    var B = b.name.slice(0,3);
-                    if (A < B) return -1;
-                    if (A > B) return 1;
-                    return 0;
-                    })
+                temperaments: action.payload
             };
-        case GET_BY_NAME:
+        case GET_BREEDS_FILTERED:
             return {
                 ...state,
-                dogByName: action.payload
+                dogBreeds: action.payload,
+                toFilter: action.payload
+            };
+        case GET_BY_ID:
+            return {
+                ...state,
+                dogBreeds: action.payload
             };
         case GET_DOG_DETAIL:
             return {
@@ -39,8 +44,44 @@ export default (state = initialState, action) => {
         case CREATE_DOG_BREED:
             return {
                 ...state,
-                postResponse: action.payload
+                post: action.payload
             };
+        case ERROR_OCURRED:
+            return {
+                ...state,
+                error: action.payload
+            }
+        case CLEAR_ERROR:
+            return {
+                ...state,
+                error: ''
+            }
+        case RESET_FILTERS:
+            return {
+                ...state,
+                dogBreeds: state.dogs,
+            }
+        case ORDER_BREEDS:{
+            let ordered = []; 
+            let toOrder = state.dogBreeds;
+            switch (action.payload.value){
+                case 'nameDesc': ordered = [...toOrder]?.sort((a,b) => sortDesc(a, b, 'name')); 
+                break;
+                case 'weightAsc': ordered = [...toOrder]?.sort((a,b) => sortAsc(a, b, 'weight')); 
+                break; 
+                case 'weightDesc': ordered = [...toOrder]?.sort((a,b) => sortDesc(a, b, 'weight')); 
+                break;
+                case 'nameAsc':
+                default: ordered = [...toOrder]?.sort((a,b) => sortAsc(a, b, 'name')); 
+                break;
+            }
+            return{
+                ...state,
+                dogBreeds: ordered,
+            }
+        }
         default: return state;
     }
 }
+
+export default rootReducer;

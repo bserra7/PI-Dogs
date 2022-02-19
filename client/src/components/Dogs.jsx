@@ -1,36 +1,50 @@
-import { React, Component } from "react";
+import { React, useEffect, useState } from "react";
 import Dog from "./Dog";
+import Pagination from './Pagination';
 import { Link } from "react-router-dom";
 import s from '../css/Dogs.module.css';
-import { connect } from 'react-redux';
-import { getBreeds } from "../actions";
+import { useDispatch, useSelector } from 'react-redux';
+import { clearError, getBreeds } from "../actions";
+import Loader from "./Loader";
+import Modal from './Modal';
 
-class Dogs extends Component{
-    constructor(props){
-        super(props);
+const Dogs = () =>{
+    const dispatch = useDispatch();
+    const [currentPage, setCurrentPage] = useState(1);
+    const dogBreeds = useSelector(state => state.dogBreeds);
+    const [show, setShow] = useState(true)
+    const error = useSelector(state => state.error);
+    useEffect(() => {
+        dispatch(getBreeds());
+        setCurrentPage(1);
+    },[dispatch])
+    
+    // Defino las razas a mostrar por Página
+    const breedsPerPage = 8;
+    const LastBreed = currentPage * breedsPerPage;
+    const firstBreed = LastBreed - breedsPerPage;
+    const breeds = dogBreeds.slice(firstBreed, LastBreed);
+
+    //Cambio de Pagina
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber)
     }
 
-    componentDidMount = () => {
-        this.props.getBreeds();
+    const clearErrors = (value) => {
+        setShow(value);
+        dispatch(clearError());
     }
 
-    render(){
-        return(
-            <div className={s.dogsContainer}>  
-                {this.props.dogBreeds?.map(dog => <Link className={s.nostyle} to={`dog/${dog.id}`}><Dog key={dog.id} name={dog.name} temperaments={dog.temperaments} weight={dog.weight} image={dog.image}/></Link>)}
-            </div>
-        )
-    }
+    return(
+        <>
+        { error && <Modal show={show} setShow={clearErrors} message={"The search doesn't found any results"}/>}
+        <div className={s.dogsContainer}>  
+            { dogBreeds.length ? breeds?.map(dog => <Link className={s.nostyle} to={`dog/${dog.id}`}>
+                <Dog key={dog.id} name={dog.name} temperaments={dog.temperaments} weight={dog.weight} image={dog.image}/></Link>)
+                : <Loader/>}                
+        </div>
+        <Pagination breedsPerPage={breedsPerPage} currentPage={currentPage} totalBreeds={dogBreeds.length} paginate={paginate}/></>
+    )
 }
 
-const mapStateToProps = state => ({
-    dogBreeds: state.dogBreeds
-});
-
-const mapDispatchToProps = dispatch => ({
-    getBreeds: () => dispatch(getBreeds())
-})
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dogs);
-        
+export default Dogs;
