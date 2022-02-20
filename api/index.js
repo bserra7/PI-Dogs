@@ -27,7 +27,7 @@ conn.sync({ force: true }).then(() => {
   // Ejecuto función que obtiene los Temperamentos de la API al sincronizar los modelos con la base de datos
   saveTemperaments();
 
-  server.listen(process.env.DB_PORT, () => {
+  server.listen(process.env.PORT, () => {
     console.log('API listening at 3001'); // eslint-disable-line no-console
   });
 });
