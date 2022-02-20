@@ -9,22 +9,25 @@ const uid = () => {
     return Math.random().toString(36).slice(2,12);
 };
 
-module.exports = {
-    saveTemperaments : async () => {
-        // Obtengo todos los Temperamentos de la API y los guardo en mi Base de Datos
-        const dogs = await fetch(urlFetch + api_key).then(data => data.json());
-        let temperaments = [];
-        dogs.forEach(dog => {
-            if(dog.temperament) temperaments.push(...dog.temperament.split(', '));
-        });
-        temperaments = [...new Set(temperaments)];
+const saveTemperaments = async () => {
+    // Obtengo todos los Temperamentos de la API y los guardo en mi Base de Datos
+    const dogs = await fetch(urlFetch + api_key).then(data => data.json());
+    let temperaments = [];
+    dogs.forEach(dog => {
+        if(dog.temperament) temperaments.push(...dog.temperament.split(', '));
+    });
+    temperaments = [...new Set(temperaments)];
 
-        temperaments = temperaments.map(temp => {
-            return {name: temp}
-        });
-        
-        await Temperament.bulkCreate(temperaments);
-    },
+    temperaments = temperaments.map(temp => {
+        return {name: temp}
+    });
+    
+    await Temperament.bulkCreate(temperaments);
+}
+// Creo los temperamentos obtenidos en mi Base de Datos, solo 1 vez
+saveTemperaments();
+
+module.exports = {
     getDogs : async (name, source, temp, idDog) => {
         // Recibo los datos de la API
         let dog = await fetch(`${urlFetch}${api_key}`).then(data => data.json());

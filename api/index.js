@@ -19,14 +19,10 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const { saveTemperaments } = require('./src/utils.js');
 require('dotenv').config();
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
-  // Ejecuto función que obtiene los Temperamentos de la API al sincronizar los modelos con la base de datos
-  saveTemperaments();
-
+conn.sync({ force: true }).then(() => {
   server.listen(process.env.PORT, () => {
     console.log('API listening at 3001'); // eslint-disable-line no-console
   });
