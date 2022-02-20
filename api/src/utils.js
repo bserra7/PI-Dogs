@@ -25,7 +25,7 @@ const saveTemperaments = async () => {
     await Temperament.bulkCreate(temperaments);
 }
 // Creo los temperamentos obtenidos en mi Base de Datos, solo 1 vez
-//saveTemperaments();
+saveTemperaments();
 
 module.exports = {
     getDogs : async (name, source, temp, idDog) => {
