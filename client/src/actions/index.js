@@ -8,8 +8,10 @@ export const ERROR_OCURRED = 'ERROR_OCURRED';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 export const CLEAR_FILTERS = 'CLEAR_FILTERS';
 export const CLEAR_DETAILS = 'CLEAR_DETAILS';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const url = 'http://localhost:3001';
+const url = process.env.REACT_APP_API || 'http://localhost:3001';
 
 export const getBreeds = () => {
     return function (dispatch) {
