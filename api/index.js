@@ -23,7 +23,7 @@ const { saveTemperaments } = require('./src/utils.js');
 require('dotenv').config();
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   // Ejecuto función que obtiene los Temperamentos de la API al sincronizar los modelos con la base de datos
   saveTemperaments();
 
