@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Content = styled.div`
     position: relative;
     background-color: #fefefe;
+    border: 5px solid #414141;
     margin: auto;
     width: 30%;
     font-size: 35px;
@@ -27,6 +28,7 @@ const Span = styled.span`
     cursor: pointer;
     }
 `;
+
 
 const Modal = ({show, message, setShow}) => {
 

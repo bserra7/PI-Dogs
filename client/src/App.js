@@ -4,7 +4,6 @@ import {Route, Switch} from 'react-router-dom';
 import './App.css';
 import Dogs from './components/Dogs';
 import NavBar from './components/NavBar';
-import SearchBar from './components/SearchBar';
 import NewDog from './components/NewDog';
 import DogDetail from './components/DogDetail';
 import About from './components/About';
@@ -18,7 +17,6 @@ function App() {
         </Route> 
         <Route exact path='/home'>
           <NavBar/> 
-          <SearchBar/>
           <Dogs/>
         </Route>
         <Route exact path='/dog/:dogId'

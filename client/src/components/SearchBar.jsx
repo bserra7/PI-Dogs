@@ -17,7 +17,7 @@ const SearchBar = () => {
         dataSource: 'allSources',
         temperaments: ''
     });
-    
+
     const [order, setOrder] = useState('');
     
     useEffect(()=>{
@@ -53,7 +53,7 @@ const SearchBar = () => {
     return(
         <div className={s.searchBar}>
         <form className={s.searchForm} onSubmit={e => handleSubmit(e)}>
-            <input className={s.inputs} type="search" name="searchName" value={form.searchName} onChange={e => handleFilter(e)} placeholder="Search by breed name or ID"/>
+            <input className={s.inputs} type="search" name="searchName" value={form.searchName} onChange={e => handleFilter(e)} placeholder="Search by breed name"/>
             <select className={s.inputs} name="dataSource" defaultValue='none' onChange={e => handleFilter(e)} id="dataSource">
                 <option value="none" disabled hidden>Select Data Source</option>
                 <option value='allSources'>All Sources</option>
@@ -69,8 +69,6 @@ const SearchBar = () => {
                     {temperaments?.map(temp => <option key={temp.id} value={temp.name}>{temp.name}</option>)}
                 </optgroup>
             </select>
-            <input className={s.btn} type="submit" value='Search'/>
-            <input className={s.btn} type="reset" onClick={e => resetFilters()} value='Reset Filters'/>
             <select className={s.inputs} name="orderAscDesc" defaultValue='none' onChange={e => handleOrder(e)} id="orderAscDesc">
                 <option value="none" disabled hidden>Order by Name or Weight</option>
                 <optgroup label='Breed Name'>                
@@ -82,6 +80,8 @@ const SearchBar = () => {
                     <option value='weightDesc'>Higher to Lower</option>
                 </optgroup>
             </select>
+            <input className={s.btn} type="reset" onClick={e => resetFilters()} value='Reset Filters'/>
+            <input className={s.btn} type="submit" value='Search'/>
         </form>
     </div>
     )

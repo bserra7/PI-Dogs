@@ -1,6 +1,6 @@
 import { React, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDogDetail } from "../actions";
+import { clearDetails, getDogDetail } from "../actions";
 import Loader from './Loader';
 import s from '../css/DogDetail.module.css';
 
@@ -9,15 +9,16 @@ const DogDetail = ({dogId}) => {
     
     useEffect(() => {
         dispatch(getDogDetail(dogId))
+        return () => {
+            dispatch(clearDetails());
+        }
     },[dispatch, dogId])
 
     const dog = useSelector((state) => state.dogDetail);
-    console.log(dogId);
-    console.log(dog);
 
     return(
         <> 
-        {dog ? 
+        { Object.keys(dog).length ? 
         <div className={s.dogBox}>
             <div className={s.name}>
                 Breed Name: {dog.name}

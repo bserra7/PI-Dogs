@@ -7,18 +7,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearError, getBreeds } from "../actions";
 import Loader from "./Loader";
 import Modal from './Modal';
+import SearchBar from "./SearchBar";
 
-const Dogs = () =>{
+const Dogs = () => {
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
+    const [show, setShow] = useState(true);
     const dogBreeds = useSelector(state => state.dogBreeds);
-    const [show, setShow] = useState(true)
     const error = useSelector(state => state.error);
     useEffect(() => {
         dispatch(getBreeds());
         setCurrentPage(1);
-    },[dispatch])
-    
+    }, [dispatch])
+
     // Defino las razas a mostrar por Página
     const breedsPerPage = 8;
     const LastBreed = currentPage * breedsPerPage;
@@ -35,15 +36,16 @@ const Dogs = () =>{
         dispatch(clearError());
     }
 
-    return(
+    return (
         <>
-        { error && <Modal show={show} setShow={clearErrors} message={"The search doesn't found any results"}/>}
-        <div className={s.dogsContainer}>  
-            { dogBreeds.length ? breeds?.map(dog => <Link className={s.nostyle} to={`dog/${dog.id}`}>
-                <Dog key={dog.id} name={dog.name} temperaments={dog.temperaments} weight={dog.weight} image={dog.image}/></Link>)
-                : <Loader/>}                
-        </div>
-        <Pagination breedsPerPage={breedsPerPage} currentPage={currentPage} totalBreeds={dogBreeds.length} paginate={paginate}/></>
+            <SearchBar />
+            {error && <Modal show={show} setShow={clearErrors} message={"The search doesn't found any results"} />}
+            <div className={s.dogsContainer}>
+                {dogBreeds.length ? breeds?.map(dog => <Link key={'l-' + dog.id} className={s.nostyle} to={`dog/${dog.id}`}>
+                    <Dog key={dog.id} name={dog.name} temperaments={dog.temperaments} weight={dog.weight} image={dog.image} /></Link>)
+                    : <Loader />}
+            </div>
+            <Pagination breedsPerPage={breedsPerPage} currentPage={currentPage} totalBreeds={dogBreeds.length} paginate={paginate} /></>
     )
 }
 

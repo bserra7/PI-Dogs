@@ -108,7 +108,7 @@ class NewDog extends Component{
         return(
         <div className={s.formWrapper}>
             <Modal show={this.state.added} setShow={this.setAdded} message={"Breed added correctly!"}/>
-            <Modal show={this.state.error} setShow={this.setError} message={"Ups! Something went wrong... Check the form and send it again!"}/>
+            <Modal show={this.state.error} setShow={this.setError} message={"Ups! Something went wrong... Please check the form and send it again!"}/>
             <div className={s.title}>Create a new Dog Breed!</div>
             <form className={s.forms} method="post" action='/dog' onSubmit={e => this.handleSubmit(e)}>
             <label className={s.labels} htmlFor='name'>Breed:</label>
@@ -146,7 +146,7 @@ class NewDog extends Component{
                 <option value="none" disabled hidden>Choose one or more</option>
                 {this.props.temperaments?.map(temp => <option key={temp.id} value={temp.name}>{temp.name}</option>)}
             </select>
-            <div className={s.addedTemp}>{this.state.inputs.temperaments?.map(temp => <div key={temp} className={s.tempContainer}><div className={s.temperament}>{temp}</div><div className={s.deleteTemp} id={temp} onClick={e => this.handleDelete(e)}>X</div></div>)}</div>
+            <div className={s.addedTemp}>{this.state.inputs.temperaments?.map(temp => <div key={temp} className={s.tempContainer}><div className={s.temperament}>{temp}</div><div className={s.deleteTemp} id={temp} onClick={e => this.handleDelete(e)}>x</div></div>)}</div>
 
             <input className={`${s.btn} `} type="submit" value="Save 🐶"/>
             </form>

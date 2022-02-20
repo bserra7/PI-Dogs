@@ -1,24 +1,22 @@
-import { GET_BREEDS, GET_TEMPERAMENTS, GET_DOG_DETAIL, CREATE_DOG_BREED, GET_BREEDS_FILTERED, GET_BY_ID, ORDER_BREEDS, ERROR_OCURRED, CLEAR_ERROR, RESET_FILTERS } from "../actions";
+import { GET_BREEDS, GET_TEMPERAMENTS, GET_BREED_DETAIL, CREATE_DOG_BREED, GET_BREEDS_FILTERED, ORDER_BREEDS, ERROR_OCURRED, CLEAR_ERROR, CLEAR_FILTERS, CLEAR_DETAILS } from "../actions";
 import { sortAsc, sortDesc } from "../utils";
 
 const initialState = {
     dogBreeds: [],
     temperaments: [],
-    dogs: [],
-    toFilter: [],
+    dogsRaw: [],
     dogDetail: {},
     post: '',
     error: '',
-    alreadyFiltered: false
 }
 
 const rootReducer = (state = initialState, action) => {
-    switch (action.type){
+    switch (action.type) {
         case GET_BREEDS:
             return {
                 ...state,
                 dogBreeds: action.payload,
-                dogs: action.payload
+                dogsRaw: action.payload
             };
         case GET_TEMPERAMENTS:
             return {
@@ -28,19 +26,13 @@ const rootReducer = (state = initialState, action) => {
         case GET_BREEDS_FILTERED:
             return {
                 ...state,
-                dogBreeds: action.payload,
-                toFilter: action.payload
-            };
-        case GET_BY_ID:
-            return {
-                ...state,
                 dogBreeds: action.payload
             };
-        case GET_DOG_DETAIL:
+        case GET_BREED_DETAIL:
             return {
                 ...state,
-                dogDetail: state.dogBreeds?.find(dog => dog.id.toString() === action.payload)
-            };        
+                dogDetail: action.payload
+            };
         case CREATE_DOG_BREED:
             return {
                 ...state,
@@ -56,26 +48,31 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 error: ''
             }
-        case RESET_FILTERS:
+        case CLEAR_FILTERS:
             return {
                 ...state,
-                dogBreeds: state.dogs,
+                dogBreeds: state.dogsRaw
             }
-        case ORDER_BREEDS:{
-            let ordered = []; 
+        case CLEAR_DETAILS:
+            return {
+                ...state,
+                dogDetail: {}
+            }
+        case ORDER_BREEDS: {
+            let ordered = [];
             let toOrder = state.dogBreeds;
-            switch (action.payload.value){
-                case 'nameDesc': ordered = [...toOrder]?.sort((a,b) => sortDesc(a, b, 'name')); 
-                break;
-                case 'weightAsc': ordered = [...toOrder]?.sort((a,b) => sortAsc(a, b, 'weight')); 
-                break; 
-                case 'weightDesc': ordered = [...toOrder]?.sort((a,b) => sortDesc(a, b, 'weight')); 
-                break;
+            switch (action.payload) {
+                case 'nameDesc': ordered = [...toOrder]?.sort((a, b) => sortDesc(a, b, 'name'));
+                    break;
+                case 'weightAsc': ordered = [...toOrder]?.sort((a, b) => sortAsc(a, b, 'weight'));
+                    break;
+                case 'weightDesc': ordered = [...toOrder]?.sort((a, b) => sortDesc(a, b, 'weight'));
+                    break;
                 case 'nameAsc':
-                default: ordered = [...toOrder]?.sort((a,b) => sortAsc(a, b, 'name')); 
-                break;
+                default: ordered = [...toOrder]?.sort((a, b) => sortAsc(a, b, 'name'));
+                    break;
             }
-            return{
+            return {
                 ...state,
                 dogBreeds: ordered,
             }

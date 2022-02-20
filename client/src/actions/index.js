@@ -1,111 +1,106 @@
 export const GET_BREEDS = 'GET_BREEDS';
 export const GET_TEMPERAMENTS = 'GET_TEMPERAMENTS';
-export const GET_DOG_DETAIL = 'GET_DOG_DETAIL';
+export const GET_BREED_DETAIL = 'GET_BREED_DETAIL';
 export const GET_BREEDS_FILTERED = 'GET_BREEDS_FILTERED';
-export const GET_BY_ID = 'GET_BY_ID';
 export const CREATE_DOG_BREED = 'CREATE_DOG_BREED';
 export const ORDER_BREEDS = 'ORDER_BREEDS';
 export const ERROR_OCURRED = 'ERROR_OCURRED';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
-export const RESET_FILTERS = 'RESET_FILTERS';
+export const CLEAR_FILTERS = 'CLEAR_FILTERS';
+export const CLEAR_DETAILS = 'CLEAR_DETAILS';
 
 const url = 'http://localhost:3001';
 
 export const getBreeds = () => {
     return function (dispatch) {
         return fetch(`${url}/dogs`)
-                .then(response => {
-                    if(!response.ok) throw Error(response.status)
-                    return response.json()})
-                .then(data => {
-                    dispatch({ type: GET_BREEDS, payload: data });
-                })
-                .catch(error => dispatch({ type: ERROR_OCURRED, payload: error.toString()}));
+            .then(response => {
+                if (!response.ok) throw Error(response.status)
+                return response.json()
+            })
+            .then(data => {
+                dispatch({ type: GET_BREEDS, payload: data });
+            })
+            .catch(error => dispatch({ type: ERROR_OCURRED, payload: error.toString() }));
     };
 };
 
 export const getTemperaments = () => {
-    return function (dispatch) {
-        return fetch(`${url}/temperament`)
-                .then(response => response.json())
-                .then(data => {
-                    dispatch({ type: GET_TEMPERAMENTS, payload: data });
+    return async function (dispatch) {
+        try {
+            const temperaments = await fetch(`${url}/temperament`)
+                .then(response => {
+                    if (!response.ok) throw Error(response.status);
+                    return response.json()
                 })
-                .catch(error => dispatch({ type: ERROR_OCURRED, payload: error.toString()}));
+            return dispatch({ type: GET_TEMPERAMENTS, payload: temperaments });
+        } catch (error) {
+            dispatch({ type: ERROR_OCURRED, payload: error.toString() })
+        };
     };
 };
-
-/* export const getDogByName = (form) => {
-    return function (dispatch) {
-        return fetch(`${url}/dogs?name=${form.searchName}&source=${form.dataSource}&temp=${form.orderTemperaments}`)
-                .then(response => response.json())
-                .then(data => {
-                    dispatch({ type: GET_BY_NAME, payload: data });
-                })
-                .catch(error => dispatch({ type: ERROR_OCURRED, payload: error }));
-    };
-}; */
 
 export const getBreedsFiltered = (form) => {
-    return function (dispatch) {
-        return fetch(`${url}/dogs?name=${form.searchName}&source=${form.dataSource}&temp=${form.temperaments}`)
-                .then(response => {
-                    if(!response.ok) throw Error(response.status);
-                    return response.json()})
-                .then(data => {
-                    dispatch({ type: GET_BREEDS_FILTERED, payload: data });
-                })
-                .catch(error => dispatch({ type: ERROR_OCURRED, payload: error.toString()}));
+    return async function (dispatch) {
+        try {
+            const response = await fetch(`${url}/dogs?name=${form.searchName}&source=${form.dataSource}&temp=${form.temperaments}`)
+            if (!response.ok) throw Error(response.status);
+            const filtered = response.json();
+            return dispatch({ type: GET_BREEDS_FILTERED, payload: filtered });
+        } catch (error) {
+            dispatch({ type: ERROR_OCURRED, payload: error.toString() });
+        }
     };
 };
 
-export const getDogById = (id) => {
+export const getDogDetail = (id) => {
     return function (dispatch) {
         return fetch(`${url}/dogs/${id}`)
-                .then(response => {
-                    if(!response.ok) throw Error(response.status);
-                    return response.json()})
-                .then(data => {
-                    dispatch({ type: GET_BY_ID, payload: data });
-                })
-                .catch(error => dispatch({ type: ERROR_OCURRED, payload: error.toString()}));
+            .then(response => {
+                if (!response.ok) throw Error(response.status);
+                return response.json()
+            })
+            .then(data => {
+                dispatch({ type: GET_BREED_DETAIL, payload: data[0] });
+            })
+            .catch(error => dispatch({ type: ERROR_OCURRED, payload: error.toString() }));
     };
-};
-
-export const getDogDetail = (payload) => {
-    return {
-        type: GET_DOG_DETAIL,
-        payload
-    }
 };
 
 export const createDogBreed = (payload) => {
     return function (dispatch) {
-        return fetch(`${url}/dog`,{
+        return fetch(`${url}/dog`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         }).then(response => {
-            dispatch({ type: CREATE_DOG_BREED, payload: response.status })})
-        .catch(error => dispatch({ type: ERROR_OCURRED, payload: error.toString()}));
+            dispatch({ type: CREATE_DOG_BREED, payload: response.status })
+        })
+            .catch(error => dispatch({ type: ERROR_OCURRED, payload: error.toString() }));
     };
 };
 
 export const orderBreeds = (payload) => {
-    return{
+    return {
         type: ORDER_BREEDS,
         payload
     }
 };
 
 export const clearError = () => {
-    return{
-        type: CLEAR_ERROR,
+    return {
+        type: CLEAR_ERROR
     }
 }
 
 export const clearFilters = () => {
-    return{
-        type: RESET_FILTERS,
+    return {
+        type: CLEAR_FILTERS
+    }
+}
+
+export const clearDetails = () => {
+    return {
+        type: CLEAR_DETAILS
     }
 }
