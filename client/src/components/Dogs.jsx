@@ -38,7 +38,7 @@ const Dogs = () => {
 
     return (
         <>
-            <SearchBar />
+            <SearchBar paginate={paginate}/>
             {error && <Modal show={show} setShow={clearErrors} message={"The search doesn't found any results"} />}
             <div className={s.dogsContainer}>
                 {dogBreeds.length ? breeds?.map(dog => <Link key={'l-' + dog.id} className={s.nostyle} to={`dog/${dog.id}`}>

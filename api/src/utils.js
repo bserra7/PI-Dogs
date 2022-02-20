@@ -63,8 +63,8 @@ module.exports = {
 
         // Ordeno el arreglo de manera ascendente, en caso de contener ambas fuentes, mixeo los datos y los deja ordenados
         toFilter.sort((a, b) => {
-            const A = a.name.slice(0,3).toLowerCase();
-            const B = b.name.slice(0,3).toLowerCase()
+            const A = a.name.toLowerCase();
+            const B = b.name.toLowerCase()
             if (A < B) return -1;
             if (A > B) return 1;
             return 0;

@@ -1,7 +1,11 @@
 const { Router } = require('express');
 const router = Router();
 
-const { getDogs, addDog, getTemperaments, searchDogs } = require('../utils.js');
+const { addDog, getTemperaments } = require('../utils.js');
+const getDogsRoute = require('./getDogs_routes.js');
+const getTemperamentsRoute = require('./getTemperament_routes.js');
+const postDogRoute = require('./postDog_routes.js');
+
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -10,32 +14,10 @@ const { getDogs, addDog, getTemperaments, searchDogs } = require('../utils.js');
 // Ejemplo: router.use('/auth', authRouter);
 
 
-router.get('/dogs', async (req, res) => {
-    const { name = '', source = 'allSources', temp = '' } = req.query;
-    const results = await getDogs(name, source, temp);
-    if (!results.length) return res.status(404).json("Breeds can't be founded");
-    res.json(results);
-});
+router.use('/dogs',getDogsRoute);
 
-router.get('/dogs/:idDog', async (req, res) => {
-    const { source = 'allSources', temp = '' } = req.query;
-    const { idDog } = req.params;
-    const finded = await getDogs('', source, temp, idDog);
-    if (!finded.length) return res.status(404).json("Breed with id: " + idDog + " can't be found");
-    res.json(finded);
-});
+router.use('/temperament',getTemperamentsRoute);
 
-router.get('/temperament', (req, res) => {
-    getTemperaments()
-        .then(data => res.json(data))
-        .catch(error => res.status(404).json('Cant get Temperaments: ' + error));
-});
-
-router.post('/dog', (req, res) => {
-    const { name, min_height, max_height, min_weight, max_weight, min_life_span, max_life_span, image, temperaments } = req.body;
-    addDog(name, min_height, max_height, min_weight, max_weight, min_life_span, max_life_span, image, temperaments)
-        .then(() => res.json('Breed added correctly'))
-        .catch(error => res.status(404).json('An error has been ocurred: ' + error));
-});
+router.use('/dog',postDogRoute);
 
 module.exports = router;

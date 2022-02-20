@@ -45,7 +45,7 @@ export const getBreedsFiltered = (form) => {
         try {
             const response = await fetch(`${url}/dogs?name=${form.searchName}&source=${form.dataSource}&temp=${form.temperaments}`)
             if (!response.ok) throw Error(response.status);
-            const filtered = response.json();
+            const filtered = await response.json();
             return dispatch({ type: GET_BREEDS_FILTERED, payload: filtered });
         } catch (error) {
             dispatch({ type: ERROR_OCURRED, payload: error.toString() });

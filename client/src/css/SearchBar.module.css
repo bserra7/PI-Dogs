@@ -35,5 +35,21 @@
 .btn:hover{
     cursor: pointer;
     background-color: #fff;
-    color: #000;
+    color: #414141;
+}
+
+.searchBtn{
+    height: 40px;
+    width: auto;
+    padding: 0 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: #fff;
+    color: #414141;
+    border: 1px solid;
+}
+.searchBtn:hover{
+    cursor: pointer;
+    background-color: #00000000;
+    color: #fff;
 }

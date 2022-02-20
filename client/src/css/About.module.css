@@ -1,6 +1,15 @@
 .container{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.banner{
+    padding-top: 20px;
+}
+.banner img{
+    width: 80%;
+    border: 2px solid #414141;
 }
 .description{
     font-size: 30px;
@@ -9,5 +18,4 @@
     width: 50%;
     border-radius: 10px;
     padding: 20px;
-    margin-bottom: 350px;
 }

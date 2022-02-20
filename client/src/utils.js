@@ -2,8 +2,8 @@ export function sortAsc (a, b, prop){
     let A;
     let B;
     if(prop === 'name'){
-        A = a[prop].slice(0,3).toLowerCase();
-        B = b[prop].slice(0,3).toLowerCase();
+        A = a[prop].toLowerCase();
+        B = b[prop].toLowerCase();
     }else if (prop === 'weight'){
         let As = a[prop].split(' - ');
         let Bs = b[prop].split(' - ');
@@ -19,8 +19,8 @@ export function sortDesc (a, b, prop){
     let A;
     let B;
     if(prop === 'name'){
-        A = a[prop].slice(0,3).toLowerCase();
-        B = b[prop].slice(0,3).toLowerCase();
+        A = a[prop].toLowerCase();
+        B = b[prop].toLowerCase();
     }else if (prop === 'weight'){
         let As = a[prop].split(' - ');
         let Bs = b[prop].split(' - ');

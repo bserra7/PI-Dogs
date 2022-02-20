@@ -3,7 +3,7 @@ import s from '../css/SearchBar.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import { orderBreeds, getBreedsFiltered, getTemperaments, clearFilters } from "../actions";
 
-const SearchBar = () => {
+const SearchBar = ({paginate}) => {
     const dispatch = useDispatch();
     
     useEffect(()=>{
@@ -26,6 +26,7 @@ const SearchBar = () => {
     
     const handleOrder = event => {
         setOrder(state => (event.target.value));
+        paginate(1);
     }
 
     const resetFilters = () => {
@@ -36,6 +37,7 @@ const SearchBar = () => {
             dataSource: 'allSources',
             temperaments: ''
         })
+        paginate(1);
     }
 
     const handleFilter = event => {
@@ -48,6 +50,7 @@ const SearchBar = () => {
     const handleSubmit = event => {
         event.preventDefault()
         dispatch(getBreedsFiltered(form));
+        paginate(1);
     }
 
     return(
@@ -81,7 +84,7 @@ const SearchBar = () => {
                 </optgroup>
             </select>
             <input className={s.btn} type="reset" onClick={e => resetFilters()} value='Reset Filters'/>
-            <input className={s.btn} type="submit" value='Search'/>
+            <input className={s.searchBtn} type="submit" value='Search'/>
         </form>
     </div>
     )
