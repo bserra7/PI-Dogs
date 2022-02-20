@@ -19,12 +19,12 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const { saveTemperaments, hardCodeTests } = require('./src/utils.js');
+const { saveTemperaments } = require('./src/utils.js');
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   // Ejecuto función que obtiene los Temperamentos de la API al sincronizar los modelos con la base de datos
-  saveTemperaments(hardCodeTests);
+  saveTemperaments();
 
   server.listen(3001, () => {
     console.log('API listening at 3001'); // eslint-disable-line no-console
