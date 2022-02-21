@@ -34,9 +34,7 @@ export function sortDesc (a, b, prop){
 
 export function validate(inputs){
     const errors = {}
-    //const regexStr = /^([a-zA-Z]+)\w$/g;
     const regexStr = /^([^0-9]+)\w$/i;
-    const regexUrl = /[a-zA-Z]+:\/\/([a-zA-Z]+(\.[a-zA-Z]+)+)/i;
     if(!inputs.name){
         errors.name = "Name is required";
     }
@@ -50,12 +48,18 @@ export function validate(inputs){
     else if(Number(inputs.min_height) > Number(inputs.max_height)){
         errors.height = "Min Height can't be greater than Max Height";   
     }
+    else if(Number(inputs.min_height) < 0 || Number(inputs.max_height) < 0){
+        errors.height = "Min and Max Height cant be negative";   
+    }
 
     else if(!inputs.min_weight || !inputs.max_weight){
         errors.weight = "Both (min and max) Weight are required";
     }
     else if(Number(inputs.min_weight) > Number(inputs.max_weight)){
         errors.weight = "Min Weight can't be greater than Max Weight";   
+    }
+    else if(Number(inputs.min_weight) < 0 || Number(inputs.max_weight) < 0){
+        errors.height = "Min and Max Weight cant be negative";   
     }
 
     else if(!inputs.min_life_span || !inputs.max_life_span){
@@ -64,13 +68,12 @@ export function validate(inputs){
     else if(Number(inputs.min_life_span) > Number(inputs.max_life_span)){
         errors.life_span = "Min Life Span can't be greater than Max Life Span";   
     }
-    
+    else if(Number(inputs.min_life_span) < 0 || Number(inputs.max_life_span) < 0){
+        errors.height = "Min and Max Weight cant be negative";   
+    }    
 
-    else if(!inputs.image){
-        errors.image = "Image URL is required";
-    }
-    else if(!regexUrl.test(inputs.image)){
-        errors.image = "Image must be a valid URL";   
+    else if(!inputs.image.data){
+        errors.image = "The Image is required";
     }
 
     else if(!inputs.temperaments.length){

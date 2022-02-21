@@ -4,6 +4,7 @@ import { createDogBreed, getTemperaments } from "../actions";
 import { validate } from "../utils";
 import s from '../css/NewDog.module.css';
 import Modal from "./Modal";
+import Placeholder from '../assets/no-img-placeholder.svg';
 
 class NewDog extends Component{
     constructor(props){
@@ -88,6 +89,39 @@ class NewDog extends Component{
         })
     }
 
+    handleFileImage = (event) => {
+        try {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.readAsDataURL(file)
+            reader.onload = () => {
+                this.setState({
+                    ...this.state,
+                    inputs: {
+                        ...this.state.inputs,
+                        image: reader.result
+                    },
+                    errors: validate({
+                        ...this.state.inputs,
+                        image: reader.result
+                    }) 
+                })
+            }
+        } catch (error) {
+            this.setState({
+                ...this.state,
+                inputs: {
+                    ...this.state.inputs,
+                    image: ''
+                },
+                errors: validate({
+                    ...this.state.inputs,
+                    image: ''
+                }) 
+            })
+        }
+    }
+
     setAdded = value =>{
         this.setState({
             ...this.state,
@@ -119,26 +153,28 @@ class NewDog extends Component{
                 {this.state.errors.height && <span className={s.danger}>{this.state.errors.height}</span>}
                 <div className={s.inpPair}>
                     <label className={s.labels} htmlFor='height'>Height Range (cm):</label>
-                    <input className={`${s.inputFrag} ${this.state.errors.height && s.error}`} value={this.state.inputs.min_height} onChange={e => this.handleSetInputs(e)} type="number" name="min_height" placeholder="min" autoComplete='off'/>
-                    <input className={`${s.inputFrag} ${this.state.errors.height && s.error}`} value={this.state.inputs.max_height} onChange={e => this.handleSetInputs(e)} type="number" name="max_height" placeholder="max" autoComplete='off'/>
+                    <input className={`${s.inputFrag} ${this.state.errors.height && s.error}`} min='0' value={this.state.inputs.min_height} onChange={e => this.handleSetInputs(e)} type="number" name="min_height" placeholder="min" autoComplete='off'/>
+                    <input className={`${s.inputFrag} ${this.state.errors.height && s.error}`} min='0' value={this.state.inputs.max_height} onChange={e => this.handleSetInputs(e)} type="number" name="max_height" placeholder="max" autoComplete='off'/>
                 </div>
                 {this.state.errors.weight && <span className={s.danger}>{this.state.errors.weight}</span>}
                 <div className={s.inpPair}>
                     <label className={s.labels} htmlFor='weight'>Weight Range (kg):</label>
-                    <input className={`${s.inputFrag} ${this.state.errors.weight && s.error}`} value={this.state.inputs.min_weight} onChange={e => this.handleSetInputs(e)} type="number" name="min_weight" placeholder="min" autoComplete='off'/>
-                    <input className={`${s.inputFrag} ${this.state.errors.weight && s.error}`} value={this.state.inputs.max_weight} onChange={e => this.handleSetInputs(e)} type="number" name="max_weight" placeholder="max" autoComplete='off'/>
+                    <input className={`${s.inputFrag} ${this.state.errors.weight && s.error}`} min='0' value={this.state.inputs.min_weight} onChange={e => this.handleSetInputs(e)} type="number" name="min_weight" placeholder="min" autoComplete='off'/>
+                    <input className={`${s.inputFrag} ${this.state.errors.weight && s.error}`} min='0' value={this.state.inputs.max_weight} onChange={e => this.handleSetInputs(e)} type="number" name="max_weight" placeholder="max" autoComplete='off'/>
                 </div>
                 {this.state.errors.life_span && <span className={s.danger}>{this.state.errors.life_span}</span>}
                 <div className={s.inpPair}>
                     <label className={s.labels} htmlFor='life_span'>Life expectation (y):</label>
-                    <input className={`${s.inputFrag} ${this.state.errors.life_span && s.error}`} value={this.state.inputs.min_life_span} onChange={e => this.handleSetInputs(e)} type="number" name="min_life_span" placeholder="min" autoComplete='off'/>
-                    <input className={`${s.inputFrag} ${this.state.errors.life_span && s.error}`} value={this.state.inputs.max_life_span} onChange={e => this.handleSetInputs(e)} type="number" name="max_life_span" placeholder="max" autoComplete='off'/>
+                    <input className={`${s.inputFrag} ${this.state.errors.life_span && s.error}`} min='0' value={this.state.inputs.min_life_span} onChange={e => this.handleSetInputs(e)} type="number" name="min_life_span" placeholder="min" autoComplete='off'/>
+                    <input className={`${s.inputFrag} ${this.state.errors.life_span && s.error}`} min='0' value={this.state.inputs.max_life_span} onChange={e => this.handleSetInputs(e)} type="number" name="max_life_span" placeholder="max" autoComplete='off'/>
                 </div>
             </div>
             
             <label className={s.labels} htmlFor='image'>Image:</label>
             {this.state.errors.image && <span className={s.danger}>{this.state.errors.image}</span>}
-            <input className={`${s.inputs} ${this.state.errors.image && s.error}`} value={this.state.inputs.image} onChange={e => this.handleSetInputs(e)} type="text" name="image" autoComplete='off'/>
+            <input className={`${s.inputImg} ${this.state.errors.image && s.error}`} onChange={e => {this.handleFileImage(e)}} type="file" name="imageFile" accept="image/jpeg, image/png" autoComplete='off'/>
+            <span className={s.extensions}>Supported extensions: jpg/jpeg/png</span>
+            <img className={s.displayImg} src={this.state.inputs.image || Placeholder} alt='Selected breed'/>
 
             <label className={s.labels} htmlFor='temperaments'>Temperaments:</label>
             {this.state.errors.temperaments && <span className={s.danger}>{this.state.errors.temperaments}</span>}
