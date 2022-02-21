@@ -10,6 +10,10 @@ const uid = () => {
 };
 
 const saveTemperaments = async () => {
+    // Reviso que la base de datos contenga los Temperamentos para no volver a agregarlos y se encuentren repetidos
+    const dbTemperaments = await Temperament.findAll();
+    if(dbTemperaments.length) return;
+
     // Obtengo todos los Temperamentos de la API y los guardo en mi Base de Datos
     const dogs = await fetch(urlFetch + api_key).then(data => data.json());
     let temperaments = [];
@@ -24,6 +28,7 @@ const saveTemperaments = async () => {
     
     await Temperament.bulkCreate(temperaments);
 }
+
 // Creo los temperamentos obtenidos en mi Base de Datos, solo 1 vez
 saveTemperaments();
 
