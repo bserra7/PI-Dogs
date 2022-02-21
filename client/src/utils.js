@@ -59,7 +59,7 @@ export function validate(inputs){
         errors.weight = "Min Weight can't be greater than Max Weight";   
     }
     else if(Number(inputs.min_weight) < 0 || Number(inputs.max_weight) < 0){
-        errors.height = "Min and Max Weight cant be negative";   
+        errors.weight = "Min and Max Weight cant be negative";   
     }
 
     else if(!inputs.min_life_span || !inputs.max_life_span){
@@ -69,10 +69,10 @@ export function validate(inputs){
         errors.life_span = "Min Life Span can't be greater than Max Life Span";   
     }
     else if(Number(inputs.min_life_span) < 0 || Number(inputs.max_life_span) < 0){
-        errors.height = "Min and Max Weight cant be negative";   
+        errors.life_span = "Min and Max Life expectation cant be negative";   
     }    
 
-    else if(!inputs.image.data){
+    else if(!inputs.image){
         errors.image = "The Image is required";
     }
 
