@@ -7,7 +7,7 @@ const initialState = {
     temperaments: [],
     dogsRaw: [],
     dogDetail: {},
-    post: '',
+    postStatus: '',
     error: '',
 }
 
@@ -37,7 +37,7 @@ const rootReducer = (state = initialState, action) => {
         case CREATE_DOG_BREED:
             return {
                 ...state,
-                post: action.payload
+                postStatus: action.payload
             };
         case ERROR_OCURRED:
             return {

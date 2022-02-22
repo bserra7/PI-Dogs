@@ -140,7 +140,7 @@ class NewDog extends Component{
     render(){
         return(
         <div className={s.formWrapper}>
-            <Modal show={this.state.added} setShow={this.setAdded} message={"Breed added correctly!"}/>
+            {this.props.postStatus === 200 && <Modal show={this.state.added} setShow={this.setAdded} message={"Breed added correctly!"}/>}
             <Modal show={this.state.error} setShow={this.setError} message={"Ups! Something went wrong... Please check the form and send it again!"}/>
             <div className={s.title}>Create a new Dog Breed!</div>
             <form className={s.forms} method="post" action='/dog' onSubmit={e => this.handleSubmit(e)}>
@@ -192,7 +192,7 @@ class NewDog extends Component{
 
 const mapStateToProps = state => ({
     temperaments: state.temperaments,
-    postResponse: state.postResponse
+    postStatus: state.postStatus
 })
 
 const mapDispatchToProps = dispatch => ({
