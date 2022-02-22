@@ -9,9 +9,13 @@ export function sortAsc (a, b, prop){
         let Bs = b[prop].split(' - ');
         A = Number(As[1]);
         B = Number(Bs[1]);
+        if( A === B ){
+            A = Number(As[0]);
+            B = Number(Bs[0]);
+        }
     }
-    if (A < B) return -1;
-    if (A > B) return 1;
+    if (A < B || !B) return -1;
+    if (A > B || !A) return 1;
     return 0;
 }
 
@@ -26,9 +30,13 @@ export function sortDesc (a, b, prop){
         let Bs = b[prop].split(' - ');
         A = Number(As[1]);
         B = Number(Bs[1]);
+        if( A === B ){
+            A = Number(As[0]);
+            B = Number(Bs[0]);
+        }
     }
-    if (B < A) return -1;
-    if (B > A) return 1;
+    if (B < A || !B) return -1;
+    if (B > A || !A) return 1;
     return 0;
 } 
 
@@ -39,7 +47,7 @@ export function validate(inputs){
         errors.name = "Name is required";
     }
     else if (!regexStr.test(inputs.name)){
-        errors.name = "Name is invalid";  
+        errors.name = "Name isn't valid";  
     }
 
     else if(!inputs.min_height || !inputs.max_height){
@@ -49,7 +57,7 @@ export function validate(inputs){
         errors.height = "Min Height can't be greater than Max Height";   
     }
     else if(Number(inputs.min_height) < 0 || Number(inputs.max_height) < 0){
-        errors.height = "Min and Max Height cant be negative";   
+        errors.height = "Min or Max Height cant be negative";   
     }
 
     else if(!inputs.min_weight || !inputs.max_weight){
@@ -59,7 +67,7 @@ export function validate(inputs){
         errors.weight = "Min Weight can't be greater than Max Weight";   
     }
     else if(Number(inputs.min_weight) < 0 || Number(inputs.max_weight) < 0){
-        errors.weight = "Min and Max Weight cant be negative";   
+        errors.weight = "Min or Max Weight cant be negative";   
     }
 
     else if(!inputs.min_life_span || !inputs.max_life_span){
@@ -69,15 +77,15 @@ export function validate(inputs){
         errors.life_span = "Min Life Span can't be greater than Max Life Span";   
     }
     else if(Number(inputs.min_life_span) < 0 || Number(inputs.max_life_span) < 0){
-        errors.life_span = "Min and Max Life expectation cant be negative";   
+        errors.life_span = "Min or Max Life expectation cant be negative";   
     }    
 
     else if(!inputs.image){
-        errors.image = "The Image is required";
+        errors.image = "Image is required";
     }
 
     else if(!inputs.temperaments.length){
-        errors.temperaments = "Temperaments is required";
+        errors.temperaments = "Temperaments are required";
     }
     
     return errors;
