@@ -61,7 +61,6 @@ class NewDog extends Component{
         event.preventDefault();
         if(Object.keys(this.state.errors).length) return this.setState({...this.state, error: true});
         this.props.addDog(this.state.inputs);
-        console.log(this.props.postResponse);
         this.setState({
             inputs: {
                 name: '',

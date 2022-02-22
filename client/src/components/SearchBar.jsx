@@ -11,7 +11,7 @@ const SearchBar = ({paginate}) => {
     }, []); // eslint-disable-line
 
     const temperaments = useSelector(state => state.temperaments);
-    /* const [search, setSearch] = useState(''); */
+
     const [form, setForm] = useState({
         searchName: '',
         dataSource: 'allSources',
@@ -22,7 +22,7 @@ const SearchBar = ({paginate}) => {
     
     useEffect(()=>{
         dispatch(orderBreeds(order))
-    },[order, dispatch])
+    },[order, dispatch]) 
     
     const handleOrder = event => {
         setOrder(state => (event.target.value));
