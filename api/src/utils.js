@@ -43,7 +43,7 @@ module.exports = {
             weight: dog.weight.metric,
             height: dog.height.metric,
             temperaments: dog.temperament?.split(', '),
-            image: `https://cdn2.thedogapi.com/images/${dog.reference_image_id}.jpg`
+            image: dog.image.url
         }));
         // Recibo los datos de mi Base de Datos
         let dbDogs = await Dog.findAll({include: Temperament});
