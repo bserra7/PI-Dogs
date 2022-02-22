@@ -6,7 +6,8 @@ export const GET_TEMPERAMENTS = 'GET_TEMPERAMENTS';
 export const GET_BREED_DETAIL = 'GET_BREED_DETAIL';
 export const GET_BREEDS_FILTERED = 'GET_BREEDS_FILTERED';
 export const CREATE_DOG_BREED = 'CREATE_DOG_BREED';
-export const ORDER_BREEDS = 'ORDER_BREEDS';
+export const ORDER_BY_NAME = 'ORDER_BY_NAME';
+export const ORDER_BY_WEIGHT = 'ORDER_BY_WEIGHT';
 export const ERROR_OCURRED = 'ERROR_OCURRED';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 export const CLEAR_FILTERS = 'CLEAR_FILTERS';
@@ -83,9 +84,16 @@ export const createDogBreed = (payload) => {
     };
 };
 
-export const orderBreeds = (payload) => {
+export const orderByName = (payload) => {
     return {
-        type: ORDER_BREEDS,
+        type: ORDER_BY_NAME,
+        payload
+    }
+};
+
+export const orderByWeight = (payload) => {
+    return {
+        type: ORDER_BY_WEIGHT,
         payload
     }
 };

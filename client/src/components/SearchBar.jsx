@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import s from '../css/SearchBar.module.css';
 import { useDispatch, useSelector } from "react-redux";
-import { orderBreeds, getBreedsFiltered, getTemperaments, clearFilters } from "../actions";
+import { orderByName, orderByWeight, getBreedsFiltered, getTemperaments, clearFilters } from "../actions";
 
 const SearchBar = ({paginate}) => {
     const dispatch = useDispatch();
@@ -18,20 +18,31 @@ const SearchBar = ({paginate}) => {
         temperaments: ''
     });
 
-    const [order, setOrder] = useState('');
+    const [orderName, setOrderName] = useState('');
+    const [orderWeight, setOrderWeight] = useState('');
     
     useEffect(()=>{
-        dispatch(orderBreeds(order))
-    },[order, dispatch]) 
+        dispatch(orderByName(orderName))
+    },[orderName, dispatch]) 
+
+    useEffect(()=>{
+        dispatch(orderByWeight(orderWeight))
+    },[orderWeight, dispatch]) 
     
-    const handleOrder = event => {
-        setOrder(state => (event.target.value));
+    const handleOrderName = event => {
+        setOrderName(state => (event.target.value));
+        paginate(1);
+    }
+
+    const handleOrderWeight = event => {
+        setOrderWeight(state => (event.target.value));
         paginate(1);
     }
 
     const resetFilters = () => {
         dispatch(clearFilters());
-        setOrder('');
+        setOrderName('');
+        setOrderWeight('');
         setForm({
             searchName: '',
             dataSource: 'allSources',
@@ -72,16 +83,15 @@ const SearchBar = ({paginate}) => {
                     {temperaments?.map(temp => <option key={temp.id} value={temp.name}>{temp.name}</option>)}
                 </optgroup>
             </select>
-            <select className={s.inputs} name="orderAscDesc" defaultValue='none' onChange={e => handleOrder(e)} id="orderAscDesc">
-                <option value="none" disabled hidden>Order by Name or Weight</option>
-                <optgroup label='Breed Name'>                
-                    <option value='nameAsc'>Ascendent A to Z</option>
-                    <option value='nameDesc'>Descendent Z to A</option>
-                </optgroup>
-                <optgroup label='Weight'>
-                    <option value='weightAsc'>Lower to Higher</option>
-                    <option value='weightDesc'>Higher to Lower</option>
-                </optgroup>
+            <select className={s.inputsOrder} name="orderByName" defaultValue='none' onChange={e => handleOrderName(e)} id="orderAscDesc">
+                <option value="none" disabled hidden>Order by Name</option>                
+                <option value='nameAsc'>Ascendent A to Z</option>
+                <option value='nameDesc'>Descendent Z to A</option>
+            </select>
+            <select className={s.inputsOrder} name="orderByWeight" defaultValue='none' onChange={e => handleOrderWeight(e)} id="orderAscDesc">
+                <option value="none" disabled hidden>Order by Weight</option>
+                <option value='weightAsc'>Lower to Higher</option>
+                <option value='weightDesc'>Higher to Lower</option>
             </select>
             <input className={s.btn} type="reset" onClick={e => resetFilters()} value='Reset Filters'/>
             <input className={s.searchBtn} type="submit" value='Search'/>

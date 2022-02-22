@@ -1,4 +1,5 @@
-import { GET_BREEDS, GET_TEMPERAMENTS, GET_BREED_DETAIL, CREATE_DOG_BREED, GET_BREEDS_FILTERED, ORDER_BREEDS, ERROR_OCURRED, CLEAR_ERROR, CLEAR_FILTERS, CLEAR_DETAILS } from "../actions";
+import { GET_BREEDS, GET_TEMPERAMENTS, GET_BREED_DETAIL, CREATE_DOG_BREED, GET_BREEDS_FILTERED, ERROR_OCURRED,
+         CLEAR_ERROR, CLEAR_FILTERS, CLEAR_DETAILS, ORDER_BY_NAME, ORDER_BY_WEIGHT } from "../actions";
 import { sortAsc, sortDesc } from "../utils";
 
 const initialState = {
@@ -58,23 +59,26 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 dogDetail: {}
             }
-        case ORDER_BREEDS: {
-            let ordered = [];
+        case ORDER_BY_NAME: {
+            let orderName = [];
             let toOrder = state.dogBreeds;
-            switch (action.payload) {
-                case 'nameDesc': ordered = [...toOrder]?.sort((a, b) => sortDesc(a, b, 'name'));
-                    break;
-                case 'weightAsc': ordered = [...toOrder]?.sort((a, b) => sortAsc(a, b, 'weight'));
-                    break;
-                case 'weightDesc': ordered = [...toOrder]?.sort((a, b) => sortDesc(a, b, 'weight'));
-                    break;
-                case 'nameAsc':
-                default: ordered = [...toOrder]?.sort((a, b) => sortAsc(a, b, 'name'));
-                    break;
-            }
+            if (action.payload === 'nameAsc') orderName = [...toOrder]?.sort((a, b) => sortAsc(a, b, 'name'));
+            else if (action.payload === 'nameDesc') orderName = [...toOrder]?.sort((a, b) => sortDesc(a, b, 'name'));
+            else orderName = [...toOrder]
             return {
                 ...state,
-                dogBreeds: ordered,
+                dogBreeds: orderName,
+            }
+        }
+        case ORDER_BY_WEIGHT: {
+            let orderWeight = [];
+            let toOrder = state.dogBreeds;
+            if (action.payload === 'weightAsc') orderWeight = [...toOrder]?.sort((a, b) => sortAsc(a, b, 'weight'));
+            else if (action.payload === 'weightDesc') orderWeight = [...toOrder]?.sort((a, b) => sortDesc(a, b, 'weight'));
+            else orderWeight = [...toOrder]
+            return {
+                ...state,
+                dogBreeds: orderWeight,
             }
         }
         default: return state;
