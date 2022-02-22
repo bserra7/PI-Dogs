@@ -28,7 +28,7 @@ describe('Componente App', () => {
       temperaments: [],
       dogsRaw: [],
       dogDetail: {},
-      post: '',
+      postResponse: '',
       error: '',
   });
   });
@@ -68,8 +68,8 @@ describe('Componente App', () => {
           </MemoryRouter>
         </Provider>
       );
-        
       expect(wrapper.find(NavBar)).toHaveLength(1);
+      expect(wrapper.find(DogDetail)).toHaveLength(1);
       expect(wrapper.find(NewDog)).toHaveLength(0);
       expect(wrapper.find(Dogs)).toHaveLength(0);
       expect(wrapper.find(About)).toHaveLength(0); 
