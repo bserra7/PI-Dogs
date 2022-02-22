@@ -11,7 +11,8 @@ const dog = {
   height: '25 - 30',
   weight: '8 - 10',
   life_span: '15 - 20',
-  image: 'someBase64ImageData'
+  image: 'someBase64ImageData',
+  temperaments: []
 };
 
 describe('Test de API', () => {
@@ -24,10 +25,22 @@ describe('Test de API', () => {
     
   describe('GET /dogs', () => {
     it('Deberia responder con status 200', () => agent.get('/dogs').expect(200));
+    it('Deberia responder con status 200 cuando se le hace una peticion por query', () => agent.get('/dogs?name=Sam').expect(200));
+    it('Deberia devolver un arreglo con las razas encontradas por query', () => agent.get('/dogs?name=Sam&Source=createdBreed&temp=')
+    .expect('Content-Type', /json/)
+    .expect(res => {
+      expect(res.body[0]).to.eql(dog)
+    }));
   });
 
   describe('GET /dogs/:idDog', () => {
     it('Deberia responder con status 200 cuando el id existe', () => agent.get('/dogs/some10char').expect(200));
+    it('Deberia devolver un arreglo, con la raza encontrada', () => 
+    agent.get('/dogs/some10char')
+    .expect('Content-Type', /json/)
+    .expect(res => {
+      expect(res.body[0]).to.eql(dog)
+    }));
     it('Deberia responder con status 404 con un id inexistente', () => agent.get('/dogs/esteIdNoExiste').expect(404));
   });
 
