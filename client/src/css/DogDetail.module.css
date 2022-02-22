@@ -3,11 +3,15 @@
     flex-direction: column;
     flex-wrap: wrap;
     width: 100%;
+    height: 100%;
     align-items: center;
     justify-content: center;
+    background-image: url(../assets/background-footprints.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .name{
-    font-size: 40px;
+    font-size: 45px;
     padding: 20px;
 }
 .temps{
@@ -21,6 +25,7 @@
     width: 500px;
     border-radius: 10px;
     margin-bottom: 10px;
+    border: 6px solid rgb(129, 0, 129);
 }
 .data{
     text-align: left;

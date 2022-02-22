@@ -21,7 +21,7 @@ const DogDetail = ({dogId}) => {
         { Object.keys(dog).length ? 
         <div className={s.dogBox}>
             <div className={s.name}>
-                Breed Name: {dog.name}
+                {dog.name}
             </div>
             <div className={s.imageBox}><img className={s.image} src={dog.image} alt={dog.name}/></div>
             <div className={s.data}>
