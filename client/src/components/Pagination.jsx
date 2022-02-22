@@ -18,7 +18,7 @@ const Pagination = ({ breedsPerPage, currentPage, totalBreeds, paginate }) => {
     }
 
     const handlePrevNextPage = (action) => {
-        if ((currentPage <= 1 && action === 'prev') || (currentPage >= 23 && action === 'next')) return;
+        if ((currentPage <= 1 && action === 'prev') || (currentPage >= pageNumbers.length && action === 'next')) return;
         else if (action === 'prev') paginate(currentPage - 1);
         else if (action === 'next') paginate(currentPage + 1);
     }

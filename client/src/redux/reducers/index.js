@@ -1,6 +1,6 @@
 import { GET_BREEDS, GET_TEMPERAMENTS, GET_BREED_DETAIL, CREATE_DOG_BREED, GET_BREEDS_FILTERED, ERROR_OCURRED,
          CLEAR_ERROR, CLEAR_FILTERS, CLEAR_DETAILS, ORDER_BY_NAME, ORDER_BY_WEIGHT } from "../actions";
-import { sortAsc, sortDesc } from "../utils";
+import { sortAsc, sortDesc } from "../../utils";
 
 const initialState = {
     dogBreeds: [],

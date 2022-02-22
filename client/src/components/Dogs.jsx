@@ -4,7 +4,7 @@ import Pagination from './Pagination';
 import { Link } from "react-router-dom";
 import s from '../css/Dogs.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearError, getBreeds } from "../actions";
+import { clearError, getBreeds } from "../redux/actions";
 import Loader from "./Loader";
 import Modal from './Modal';
 import SearchBar from "./SearchBar";

@@ -1,6 +1,6 @@
 import { React, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { clearDetails, getDogDetail } from "../actions";
+import { clearDetails, getDogDetail } from "../redux/actions";
 import Loader from './Loader';
 import s from '../css/DogDetail.module.css';
 

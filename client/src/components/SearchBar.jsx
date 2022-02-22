@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import s from '../css/SearchBar.module.css';
 import { useDispatch, useSelector } from "react-redux";
-import { orderByName, orderByWeight, getBreedsFiltered, getTemperaments, clearFilters } from "../actions";
+import { orderByName, orderByWeight, getBreedsFiltered, getTemperaments, clearFilters } from "../redux/actions";
 
 const SearchBar = ({paginate}) => {
     const dispatch = useDispatch();

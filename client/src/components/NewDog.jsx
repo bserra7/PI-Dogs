@@ -1,6 +1,6 @@
 import { React, Component } from "react";
 import { connect } from "react-redux";
-import { createDogBreed, getTemperaments } from "../actions";
+import { createDogBreed, getTemperaments } from "../redux/actions";
 import { validate } from "../utils";
 import s from '../css/NewDog.module.css';
 import Modal from "./Modal";
