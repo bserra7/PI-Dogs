@@ -83,12 +83,12 @@ const SearchBar = ({paginate}) => {
                     {temperaments?.map(temp => <option key={temp.id} value={temp.name}>{temp.name}</option>)}
                 </optgroup>
             </select>
-            <select className={s.inputsOrder} name="orderByName" defaultValue='none' onChange={e => handleOrderName(e)} id="orderAscDesc">
+            <select className={s.inputsOrder} name="orderByName" defaultValue='none' onChange={e => handleOrderName(e)} id="orderByName">
                 <option value="none" disabled hidden>Order by Name</option>                
                 <option value='nameAsc'>Ascendent A to Z</option>
                 <option value='nameDesc'>Descendent Z to A</option>
             </select>
-            <select className={s.inputsOrder} name="orderByWeight" defaultValue='none' onChange={e => handleOrderWeight(e)} id="orderAscDesc">
+            <select className={s.inputsOrder} name="orderByWeight" defaultValue='none' onChange={e => handleOrderWeight(e)} id="orderByWeight">
                 <option value="none" disabled hidden>Order by Weight</option>
                 <option value='weightAsc'>Lower to Higher</option>
                 <option value='weightDesc'>Higher to Lower</option>
