@@ -3,6 +3,7 @@
     height: 80px;
     display: flex;
     width: 100%;
+    min-width: 450px;
     border-bottom: 3px solid #000000;
 }
 .applogo{
@@ -40,4 +41,30 @@
     color: #fff;
     background-color: #414141;
     border: 1px solid #414141;   
+}
+
+@media (max-width: 770px){
+    .navBar{
+        height: auto;
+        flex-wrap: wrap;
+    }
+    .applogo{
+        position: relative;
+        width: 100%;
+    }
+}
+
+@media (max-width: 550px){
+    .navBar{
+        height: auto;
+        flex-wrap: wrap;
+    }
+    .applogo{
+        position: relative;
+        width: 100%;
+    }
+    .links,
+    .button{
+        margin: 0 10px;
+    }
 }

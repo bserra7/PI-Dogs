@@ -7,3 +7,8 @@
 .nostyle{
     text-decoration: none;
 }
+@media (max-width: 550px) {
+    .dogsContainer{
+        width: 100%;
+    }    
+}

@@ -30,3 +30,13 @@
     text-align: left;
     font-size: 25px;
 }
+
+@media (max-width: 550px) {
+    .dogBox{
+        width: 100%;
+    }
+    .image{
+        width: 95%;
+    }
+    
+}

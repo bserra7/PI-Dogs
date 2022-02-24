@@ -3,6 +3,7 @@
     background-color: #414141;
     display: flex;
     width: 100%;
+    min-width: 450px;
     border-bottom: 3px solid #000000;
 }
 .searchForm{
@@ -59,4 +60,32 @@
     cursor: pointer;
     background-color: #00000000;
     color: #fff;
+}
+
+@media (max-width: 770px){
+    .searchBar{
+        height: auto;
+    }
+}
+
+@media (max-width: 550px){
+    .searchBar{
+        height: auto;
+    }
+    .inputs{
+        width: 100%;
+        margin: 5px 10px;
+    }
+    .inputsOrder{
+        width: 45%;
+        margin: 5px 10px;
+    }
+    .btn{
+        width: 45%;
+        margin: 5px 10px;
+    }
+    .searchBtn{
+        width: 45%;
+        margin: 5px 10px;
+    }
 }

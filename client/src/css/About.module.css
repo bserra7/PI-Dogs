@@ -6,6 +6,7 @@
 }
 .banner{
     padding-top: 20px;
+    width: 100%;
 }
 .banner img{
     width: 80%;
@@ -18,4 +19,21 @@
     width: 50%;
     border-radius: 10px;
     padding: 20px;
+}
+@media (max-width: 550px){
+    .container{
+        width: 100%;
+    }
+    .banner{
+        width: 95%;
+        margin: 0 10px;
+    }
+    .banner img{
+        width: 100%;
+    }
+    .description{
+        width: 95%;
+        padding: 0;
+        margin: 10px;
+    }
 }
