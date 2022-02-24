@@ -8,8 +8,8 @@ export default class LandingPage extends Component{
         return(
             <div className={s.back}>
                 <div className={s.container}>
-                <div className={s.appName}><img className={s.appLogo} src={Logo} alt="app-logo"/></div>
-                    <Link className={s.nostyle} to='/home'><button className={s.inButton}>START APP</button></Link>
+                    <div className={s.appName}><img className={s.appLogo} src={Logo} alt="app-logo"/></div>
+                    <div className={s.startApp}><Link className={s.nostyle} to='/home'><button className={s.inButton}>START APP</button></Link></div>
                 </div>
             </div>
         )
