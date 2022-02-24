@@ -9,12 +9,15 @@ const Pagination = ({ breedsPerPage, currentPage, totalBreeds, paginate }) => {
         pageNumbers.push(i);
     }
 
+    if(prevTarget && currentPage === 1) prevTarget.className = `${s.pages}`;
+
     const handleActive = (event, number) => {
         if (prevTarget) prevTarget.className = `${s.pages}`;
+        document.getElementById('1')?.setAttribute('class', `${s.pages}`);
         event.target.className = `${s.pages} ${s.active}`;
         setPrevTarget(event.target);
         if (number < 1) return;
-        paginate(number);
+        paginate(number);        
     }
 
     const handlePrevNextPage = (action) => {
@@ -34,10 +37,16 @@ const Pagination = ({ breedsPerPage, currentPage, totalBreeds, paginate }) => {
                 <button className={s.pages} onClick={e => handlePrevNextPage('prev')} key='prevPage'>
                     «
                 </button>
-                {shortPages?.map(number =>
-                    <button className={s.pages} id={number} onClick={e => handleActive(e, number)} key={number}>
+                {shortPages?.map(number =>{
+                    if(currentPage === 1 && number === 1) {
+                         return <button className={`${s.pages} ${s.active}`} id={number} onClick={e => handleActive(e, number)} key={number}>
+                            {number}
+                        </button>
+                    }
+                    return <button className={s.pages} id={number} onClick={e => handleActive(e, number)} key={number}>
                         {number}
-                    </button>)}
+                    </button>
+                })}
                 <button className={s.pages} onClick={e => handlePrevNextPage('next')} key='nextPage'>
                     »
                 </button>

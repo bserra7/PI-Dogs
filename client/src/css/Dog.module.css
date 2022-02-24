@@ -40,3 +40,12 @@
     text-align: left;
     color: #fff;
 }
+
+.createdByUser{
+    float: right;
+    border-radius: 99px;
+    border: 2px solid #fff;
+    margin-top: 5px;
+    margin-right: 5px;
+    width: 55px;
+}

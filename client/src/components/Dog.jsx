@@ -1,8 +1,9 @@
 import { React } from "react";
 import styled from 'styled-components';
 import s from '../css/Dog.module.css';
+import print from '../assets/print.png';
 
-const Dog = ({name, image, temperaments, weight}) => {
+const Dog = ({id, name, image, temperaments, weight}) => {
     const DogBox = styled.div`
         width: 450px;
         min-width: 250px;
@@ -26,6 +27,7 @@ const Dog = ({name, image, temperaments, weight}) => {
         <div className={s.theContainer}>
             <DogBox>
                 <div className={s.darker}>
+                    {id.length === 10 && <div className={s.createdByUser}><img src={print} alt="Created by the User" /></div>}
                     <div className={s.title}>{name}</div> 
                     <div className={s.container}>
                         <div className={s.data}>Temperaments: {temperaments?.slice(0,6).map(temp => temp + ' | ')}</div>

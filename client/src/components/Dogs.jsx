@@ -39,7 +39,7 @@ const Dogs = () => {
             {error && <Modal show={true} setShow={clearErrors} message={"The search doesn't found any results"} />}
             <div className={s.dogsContainer}>
                 {dogBreeds.length ? breeds?.map(dog => <Link key={'l-' + dog.id} className={s.nostyle} to={`dog/${dog.id}`}>
-                    <Dog key={dog.id} name={dog.name} temperaments={dog.temperaments} weight={dog.weight} image={dog.image} /></Link>)
+                    <Dog key={dog.id} id={dog.id} name={dog.name} temperaments={dog.temperaments} weight={dog.weight} image={dog.image} /></Link>)
                     : <Loader />}
             </div>
             <Pagination breedsPerPage={breedsPerPage} currentPage={currentPage} totalBreeds={dogBreeds.length} paginate={paginate} /></>
