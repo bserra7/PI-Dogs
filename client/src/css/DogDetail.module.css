@@ -40,3 +40,9 @@
     }
     
 }
+
+@media (max-width: 370px) {
+    .name{
+        padding: 10px 0;
+    }   
+}

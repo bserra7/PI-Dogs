@@ -1,6 +1,7 @@
 .formWrapper{
     background-color: #ececec;
     padding: 20px 0;
+    width: 100%;
 }
 .title{
     font-size: 35px;
@@ -125,4 +126,21 @@
 }
 .danger{
     color: red;
+}
+
+@media (max-width: 450px) {
+    .title{
+        font-size: 25px;
+    }
+    .inputs,
+    .inputImg,
+    .displayImg,
+    .addedTemp,
+    .doubleInp,
+    .labels{
+        width: 95%;
+        text-align: center;
+        padding: 0;
+        margin: 5px 0;
+    }
 }

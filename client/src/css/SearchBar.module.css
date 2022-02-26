@@ -3,7 +3,6 @@
     background-color: #414141;
     display: flex;
     width: 100%;
-    min-width: 450px;
     border-bottom: 3px solid #000000;
 }
 .searchForm{
@@ -86,6 +85,24 @@
     }
     .searchBtn{
         width: 45%;
+        margin: 5px 10px;
+    }
+}
+
+@media (max-width: 420px){
+    .inputsOrder{
+        width: 41%;
+        margin: 5px 10px;
+        font-size: 12px;
+    }
+    .btn{
+        width: 41%;
+        margin: 5px 10px;
+        font-size: 18px;
+        padding: 0;
+    }
+    .searchBtn{
+        width: 41%;
         margin: 5px 10px;
     }
 }

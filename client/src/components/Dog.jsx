@@ -6,7 +6,7 @@ import print from '../assets/print.png';
 const Dog = ({id, name, image, temperaments, weight}) => {
     const DogBox = styled.div`
         width: 450px;
-        min-width: 450px;
+        min-width: 400px;
         height: 310px;
         border-radius: 10px;
         margin: 20px 12px;
@@ -24,6 +24,9 @@ const Dog = ({id, name, image, temperaments, weight}) => {
         @media (max-width: 550px){
             width: 100%;
             margin: 10px 10px;
+        }
+        @media (max-width: 370px){
+            min-width: 300px;
         }
     `;
     return(

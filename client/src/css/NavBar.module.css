@@ -3,7 +3,6 @@
     height: 80px;
     display: flex;
     width: 100%;
-    min-width: 450px;
     border-bottom: 3px solid #000000;
 }
 .applogo{
@@ -66,5 +65,20 @@
     .links,
     .button{
         margin: 0 10px;
+    }
+}
+
+@media (max-width: 370px){
+    .links,
+    .button{
+        font-size: 0.9rem;
+        margin: 0 5px;
+    }
+    .applogo{
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    .menu{
+        padding: 0;
     }
 }
