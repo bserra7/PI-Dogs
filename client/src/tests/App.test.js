@@ -14,6 +14,7 @@ import NavBar from '../components/NavBar';
 import NewDog from '../components/NewDog';
 import DogDetail from '../components/DogDetail';
 import About from '../components/About';
+import NotFound from '../components/NotFound';
 
 configure({ adapter: new Adapter() });
 
@@ -48,6 +49,7 @@ describe('Componente App', () => {
       expect(wrapper.find(Dogs)).toHaveLength(0);
       expect(wrapper.find(About)).toHaveLength(0); 
       expect(wrapper.find(DogDetail)).toHaveLength(0);
+      expect(wrapper.find(NotFound)).toHaveLength(0);
     });
     it('Debería renderizarse el Componente NavBar en cualquier otra ruta "/cualquierRuta"', () => {
       const wrapper = mount(
@@ -58,6 +60,17 @@ describe('Componente App', () => {
         </Provider>
       );
       expect(wrapper.find(NavBar)).toHaveLength(1);
+    });
+
+    it('Debería renderizarse el Componente NotFound 404 en cualquier otra ruta que no exista "/rutaErronea"', () => {
+      const wrapper = mount(
+        <Provider store={store}>
+          <MemoryRouter initialEntries={["/rutaErronea"]}>
+            <App />
+          </MemoryRouter>
+        </Provider>
+      );
+      expect(wrapper.find(NotFound)).toHaveLength(1);
     });
 
     it('En la ruta /dog/:idDog solo debe renderizar el Componente NavBar y el Componente DogDetail', () => {
@@ -74,6 +87,7 @@ describe('Componente App', () => {
       expect(wrapper.find(Dogs)).toHaveLength(0);
       expect(wrapper.find(About)).toHaveLength(0); 
       expect(wrapper.find(LandingPage)).toHaveLength(0);
+      expect(wrapper.find(NotFound)).toHaveLength(0);
     });
 
     it('En la ruta /new-dog solo debe renderizar el Componente NavBar y el Componente NewDog', () => {
@@ -91,6 +105,7 @@ describe('Componente App', () => {
       expect(wrapper.find(Dogs)).toHaveLength(0);
       expect(wrapper.find(DogDetail)).toHaveLength(0);
       expect(wrapper.find(LandingPage)).toHaveLength(0);
+      expect(wrapper.find(NotFound)).toHaveLength(0);
     });
 
     it('En la ruta /about solo debe renderizar el Componente NavBar y el Componente About', () => {
@@ -108,6 +123,7 @@ describe('Componente App', () => {
       expect(wrapper.find(Dogs)).toHaveLength(0);
       expect(wrapper.find(DogDetail)).toHaveLength(0);
       expect(wrapper.find(LandingPage)).toHaveLength(0);
+      expect(wrapper.find(NotFound)).toHaveLength(0);
     });
   });
 })
