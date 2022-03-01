@@ -7,8 +7,8 @@ export function sortAsc (a, b, prop){
     }else if (prop === 'weight'){
         let As = a[prop].split(' - ');
         let Bs = b[prop].split(' - ');
-        A = Number(As[1]);
-        B = Number(Bs[1]);
+        A = As[1] ? Number(As[1]) : Number(As[0]);
+        B = Bs[1] ? Number(Bs[1]) : Number(Bs[0]);
         if( A === B ){
             A = Number(As[0]);
             B = Number(Bs[0]);
@@ -28,8 +28,8 @@ export function sortDesc (a, b, prop){
     }else if (prop === 'weight'){
         let As = a[prop].split(' - ');
         let Bs = b[prop].split(' - ');
-        A = Number(As[1]);
-        B = Number(Bs[1]);
+        A = As[1] ? Number(As[1]) : Number(As[0]);
+        B = Bs[1] ? Number(Bs[1]) : Number(Bs[0]);
         if( A === B ){
             A = Number(As[0]);
             B = Number(Bs[0]);
