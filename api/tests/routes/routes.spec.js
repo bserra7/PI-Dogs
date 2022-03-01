@@ -1,3 +1,4 @@
+const { expect } = require('chai');
 const session = require('supertest-session');
 const app = require('../../src/app.js');
 const { Dog, conn } = require('../../src/db.js');
@@ -20,6 +21,7 @@ describe('Test de API', () => {
   }));
   beforeEach(() => Dog.sync({ force: true })
     .then(() => Dog.create(dog)));
+  after(() => Dog.sync({ force: true }))
     
   describe('GET /dogs', () => {
     it('Deberia responder con status 200', () => agent.get('/dogs').expect(200));
